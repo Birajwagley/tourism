@@ -1,0 +1,124 @@
+@extends('backend.layouts.main')
+
+@section('title')
+    News & Event Category Details
+@endsection
+
+@section('content')
+    <div class="content">
+        <div class="block block-rounded">
+            <div class="block-header block-header-default">
+                <h3 class="block-title">News & Event Category Details: {{ $newsEventCategory->name }}</h3>
+                <div class="block-options">
+                    <a href="{{ route('news-event-categories.edit', $newsEventCategory) }}" class="btn btn-sm btn-alt-primary border">
+                        <i class="fa fa-pencil-alt"></i> Edit
+                    </a>
+                    <a href="{{ route('news-event-categories.index') }}" class="btn btn-sm btn-alt-primary border">
+                        <i class="fa fa-arrow-left"></i> Back
+                    </a>
+                </div>
+            </div>
+            <div class="block-content">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="block block-rounded">
+                            <div class="block-header block-header-default">
+                                <h3 class="block-title">Basic Information</h3>
+                            </div>
+                            <div class="block-content">
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-semibold text-muted">ID:</div>
+                                    <div class="col-md-8">{{ $newsEventCategory->id }}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-semibold text-muted">Name:</div>
+                                    <div class="col-md-8">{{ $newsEventCategory->name }}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-semibold text-muted">Display Order:</div>
+                                    <div class="col-md-8">{{ $newsEventCategory->display_order }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6">
+                        <div class="block block-rounded">
+                            <div class="block-header block-header-default">
+                                <h3 class="block-title">Additional Details</h3>
+                            </div>
+                            <div class="block-content">
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-semibold text-muted">Status:</div>
+                                    <div class="col-md-8">
+                                        @if ($newsEventCategory->is_published)
+                                            <span class="badge bg-success">Published</span>
+                                        @else
+                                            <span class="badge bg-warning">Draft</span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-semibold text-muted">Created At:</div>
+                                    <div class="col-md-8">{{ $newsEventCategory->created_at->format('M d, Y H:i') }}</div>
+                                </div>
+                                <div class="row mb-2">
+                                    <div class="col-md-4 fw-semibold text-muted">Updated At:</div>
+                                    <div class="col-md-8">{{ $newsEventCategory->updated_at->format('M d, Y H:i') }}</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="block block-rounded mt-4">
+                            <div class="block-header block-header-default">
+                                <h3 class="block-title">Description</h3>
+                            </div>
+                            <div class="block-content">
+                                <div class="row">
+                                    <div class="col-12">
+                                        {!! nl2br(e($newsEventCategory->description)) !!}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="col-lg-6 col-md-6">
+                        <div class="block block-rounded mt-4">
+                            <div class="block-header block-header-default">
+                                <h3 class="block-title">Category Image</h3>
+                            </div>
+                            <div class="block-content">
+                                @if ($newsEventCategory->image)
+                                    <img src="{{ asset('storage/' . $newsEventCategory->image) }}"
+                                        alt="{{ $newsEventCategory->name }}" class="img-fluid rounded">
+                                @else
+                                    <div class="alert alert-info">
+                                        <i class="fa fa-info-circle me-1"></i> No image available
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Add slug info to the detail page -->
+                <div class="row">
+                    <div class="col-lg-6 col-md-6">
+                        <div class="block block-rounded">
+                            <div class="block-header block-header-default">
+                                <h3 class="block-title">Slug</h3>
+                            </div>
+                            <div class="block-content">
+                                <p>{{ $newsEventCategory->slug ?: 'No slug set' }}</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+@endsection
